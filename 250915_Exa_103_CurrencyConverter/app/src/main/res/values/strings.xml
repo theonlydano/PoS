@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">250915_Exa_103_CurrencyConverter</string>
+    <string name="de_USD">Dollar</string>
+    <string name="de_EUR">Euro</string>
+    <string name="en_USD">USD</string>
+    <string name="en_EUR">EUR</string>
+</resources>

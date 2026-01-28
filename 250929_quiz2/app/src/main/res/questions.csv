@@ -1,0 +1,17 @@
+Category,Question,Answer1,Answer2,Answer3,Answer4,CorrectAnswer
+Math,What is 2 + 2?,1,2,3,4,4
+Math,What is 5 * 3?,5,10,15,20,3
+Math,What is the square root of 16?,2,4,6,8,2
+Math,What is 10 divided by 2?,2,5,10,20,2
+Science,What planet is closest to the sun?,Venus,Mars,Earth,Mercury,4
+Science,What gas do plants breathe in?,Oxygen,Nitrogen,Carbon Dioxide,Helium,3
+Science,What is H2O commonly known as?,Water,Hydrogen,Oxygen,Salt,1
+Science,What force keeps us on the ground?,Magnetism,Gravity,Friction,Electricity,2
+History,Who was the first President of the USA?,George Washington,Abraham Lincoln,Thomas Jefferson,John Adams,1
+History,In which year did World War II end?,1940,1942,1945,1950,3
+History,Which empire built the Colosseum?,Greek,Roman,Persian,Egyptian,2
+History,Who discovered America?,Christopher Columbus,Vasco da Gama,Ferdinand Magellan,Marco Polo,1
+IT,What does CPU stand for?,Central Process Unit,Central Processing Unit,Computer Personal Unit,Control Processing Unit,2
+IT,Which language is used for Android development?,Python,Java,Kotlin,Swift,3
+IT,What does RAM stand for?,Random Access Memory,Read Access Memory,Rapid Application Memory,Remote Access Memory,1
+IT,Which of these is a NoSQL database?,MySQL,PostgreSQL,MongoDB,Oracle,3
