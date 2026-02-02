@@ -10,11 +10,15 @@ import java.awt.event.MouseListener;
 
 @Log
 public class Game extends BaseGame{
+    private boolean start = false;
 
     @Override
     public void update() {
         // log.info("--> game update called");
-        super.spaceRocket.update();
+        if(start){
+            super.spaceRocket.update();
+        }
+
     }
 
     @Override
@@ -50,12 +54,18 @@ public class Game extends BaseGame{
                 spaceRocket.move(new Vector(0, -2f));
                 break;
             case 'a':
+            case 'A':
                 spaceRocket.move(new Vector(-2f, 0));
                 break;
             case 's':
+            case 'S':
+                if(!start){
+                    start = true;
+                }
                 spaceRocket.move(new Vector(0, 2f));
                 break;
             case 'd':
+            case'D':
                 spaceRocket.move(new Vector(2f, 0));
                 break;
 

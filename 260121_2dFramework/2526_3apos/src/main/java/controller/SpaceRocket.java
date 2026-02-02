@@ -3,6 +3,7 @@ package controller;
 import lombok.extern.java.Log;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 @Log
@@ -16,15 +17,20 @@ public class SpaceRocket {
     private int height;
     private Color color = Color.BLACK;
     private boolean moving = true;
+    private ArrayList<Asteroid> asteroids;
 
     private SpaceRocket() {
         Random rand = new Random();
-        this.location = new Vector(100, 100);
+        this.location = new Vector((float)(386/2), 100);
         this.velocity = new Vector(rand.nextFloat() * 5f, 0);
-        this.acceleration = new Vector(0, 0.2981f);
-        // this.acceleration = new Vector(0, 0);
+        //this.acceleration = new Vector(0, 0.2981f);
+        this.acceleration = new Vector(0, 0);
         this.width = 20;
         this.height = 50;
+
+        asteroids = new ArrayList<>();
+        asteroids.add(new Asteroid());
+        asteroids.add(new Asteroid());
     }
 
     public void update(){
@@ -49,12 +55,18 @@ public class SpaceRocket {
                 moving = false;
                 location.setY(363f - height);
             }
+            for(Asteroid asteroid : asteroids){
+                asteroid.update();
+            }
         }
     }
 
     public void draw(Graphics2D g2d){
         g2d.setColor(color);
         g2d.fillRect( (int) this.location.getX(), (int) this.location.getY(), width, height);
+        for(Asteroid asteroid : asteroids){
+            asteroid.draw(g2d);
+        }
     }
 
     public void move(Vector velocity){
