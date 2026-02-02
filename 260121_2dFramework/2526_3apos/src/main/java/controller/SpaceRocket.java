@@ -19,6 +19,8 @@ public class SpaceRocket {
     private boolean moving = true;
     private ArrayList<Asteroid> asteroids;
     private int health = 100;
+    private int windowsWidth = 10;
+    private int windowsHeight = 10;
 
     private SpaceRocket() {
         Random rand = new Random();
@@ -30,10 +32,13 @@ public class SpaceRocket {
         this.height = 50;
 
         asteroids = new ArrayList<>();
-        asteroids.add(new Asteroid());
-        asteroids.add(new Asteroid());
-        asteroids.add(new Asteroid());
-        asteroids.add(new Asteroid());
+    }
+
+    private void generateAstsroids() {
+        Random rand = new Random();
+        for(int i = rand.nextInt(50); i > 0; i--){
+            asteroids.add(new Asteroid(windowsWidth, windowsHeight));
+        }
     }
 
     public void update(){
@@ -42,10 +47,10 @@ public class SpaceRocket {
             velocity.add(acceleration);
             location.add(velocity);
             // log.info("location: " + location);
-            if(location.getX() + width > 386f || location.getX() < 0){
+            if(location.getX() + width > windowsWidth || location.getX() < 0){
                 velocity.multiply(new Vector(-1, 1));
             }
-            if(location.getY() + height > 363f){
+            if(location.getY() + height > windowsHeight){
                 // velocity.multiply(new Vector(1, -1));
                 if (velocity.getY() > 7f){
                     this.color = Color.RED;
@@ -56,7 +61,7 @@ public class SpaceRocket {
                     velocity = new Vector(0f, 0f);
                 }
                 moving = false;
-                location.setY(363f - height);
+                location.setY(windowsHeight - height);
             }
             for(Asteroid asteroid : asteroids){
                 asteroid.update();
@@ -92,6 +97,13 @@ public class SpaceRocket {
         }
 
         return spaceRocket;
+    }
+
+    public void setWindowParams(int w, int h){
+        this.windowsWidth = w;
+        this.windowsHeight = h;
+        // log.info("SET WINDOW PARAMS: w=" + w + ", h=" + h);
+        generateAstsroids();
     }
 
 }

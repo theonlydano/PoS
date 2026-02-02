@@ -8,17 +8,20 @@ public class App {
     public static void main(String[] args) {
         System.setProperty("sun.java2d.opengl", "true");
 
+        int windowWidth = 800;
+        int windowHeight = 600;
+
 
         // model: The 2d-Logic (the game)
-        BaseGame model = new Game();
+        BaseGame model = new Game(windowWidth, windowHeight);
 
         // view: the paint-area
         PaintArea view = new PaintArea(model);
         view.setFocusable(true);
 
         JFrame frame = new JFrame();
-        frame.setTitle("2d-Game Template");
-        frame.setSize(400, 400);
+        frame.setTitle("Lunar Lander");
+        frame.setSize(windowWidth, windowHeight);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // add paint-area to frame

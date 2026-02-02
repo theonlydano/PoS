@@ -21,14 +21,22 @@ public class Asteroid {
     private int speed = 100;
     private int height;
     private int width;
+    private int windowsWidth = 0;
+    private int windowsHeight = 0;
 
-    public Asteroid() {
+    public Asteroid(int w, int h) {
+        this.windowsWidth = w;
+        this.windowsHeight = h;
+
+        // log.info("WW: " + w);
+        // log.info("WH: " + h);
+
         Random rand = new Random();
-        this.location = new Vector(rand.nextFloat(386), rand.nextFloat(363));
+        this.location = new Vector(rand.nextFloat(windowsWidth), rand.nextFloat(windowsHeight));
         this.paths = new ArrayList<>();
 
         for (int i = rand.nextInt(20) + 2; i > 0; i--) {
-            paths.add(new Vector(rand.nextFloat(386), rand.nextFloat(363)));
+            paths.add(new Vector(rand.nextFloat(windowsWidth), rand.nextFloat(windowsHeight)));
             if(init){
                 init = false;
                 pathWays = i - 1;

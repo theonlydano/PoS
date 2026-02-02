@@ -12,11 +12,16 @@ public abstract class BaseGame {
     protected JPanel view;
     private Timer timer; // tick, tick, tick
     protected SpaceRocket spaceRocket;
+    protected int windowWidth;
+    protected int windowHeight;
 
-    public BaseGame(){
+    public BaseGame(int w, int h){
         log.info("--> basegame ctor called ");
         timer = new Timer(20, e -> tick()); // tick all 20ms, call methode
         spaceRocket = SpaceRocket.getSpaceRocket();
+        spaceRocket.setWindowParams(w, h);
+        this.windowWidth = w;
+        this.windowHeight = h;
     }
 
     public void start(JPanel view){

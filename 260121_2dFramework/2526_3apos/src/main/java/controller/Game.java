@@ -12,6 +12,10 @@ import java.awt.event.MouseListener;
 public class Game extends BaseGame{
     private boolean start = false;
 
+    public Game(int w, int h) {
+        super(w, h);
+    }
+
     @Override
     public void update() {
         // log.info("--> game update called");
