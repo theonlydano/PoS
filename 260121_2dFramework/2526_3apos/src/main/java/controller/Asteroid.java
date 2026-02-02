@@ -24,13 +24,13 @@ public class Asteroid {
         this.location = new Vector(rand.nextFloat(386), rand.nextFloat(363));
         this.paths = new ArrayList<>();
 
-        for (int i = rand.nextInt(4); i > 0; i--) {
+        for (int i = rand.nextInt(3) + 2; i > 0; i--) {
             paths.add(new Vector(rand.nextFloat(386), rand.nextFloat(363)));
             if(init){
-                pathWays = i;
                 init = false;
-                xPath = paths.get(onPath).getX() - location.getX() / 200;
-                yPath = paths.get(onPath).getY() - location.getY() / 200;
+                pathWays = i - 1;
+                xPath = (paths.get(onPath).getX() - location.getX()) / 20;
+                yPath = (paths.get(onPath).getY() - location.getY()) / 20;
             }
         }
     }
@@ -56,21 +56,22 @@ public class Asteroid {
         }
          */
         for(Vector path : paths){
-            if(location.equals(path)){
+            if((int)location.getX() == (int)path.getX() && (int)location.getY() == (int)path.getY()){
                 onPath+=nextPath;
                 if(onPath == pathWays || onPath == 0){
                     nextPath *= -1;
                 }
-                xPath = paths.get(onPath).getX() - location.getX() / 200;
-                yPath = paths.get(onPath).getY() - location.getY() / 200;
+                xPath = (paths.get(onPath).getX() - location.getX()) / 20;
+                yPath = (paths.get(onPath).getY() - location.getY()) / 20;
             }
         }
         location.add(new Vector(xPath, yPath));
-        log.info("Asteroid X: " + location.getX() + " Y: " + location.getY());
-        log.info("Asteroid X: " + xPath + " Y: " + yPath);
+        // log.info("Asteroid " + onPath + " LOCATION: " + location.getX() + " Y: " + location.getY());
+        // log.info("Asteroid " + onPath + " XY: " + xPath + " Y: " + yPath);
+        // log.info("Asteroid " + onPath + " PATH: " + paths.get(onPath).getX() + " Y: " + paths.get(onPath).getY());
     }
 
     public void draw(Graphics g){
-        g.fillRect((int)location.getX(), (int)location.getY(), 20, 20);
+        g.fillOval((int)location.getX(), (int)location.getY(), 20, 20);
     }
 }

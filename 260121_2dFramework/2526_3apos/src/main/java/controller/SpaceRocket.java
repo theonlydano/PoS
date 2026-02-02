@@ -31,6 +31,8 @@ public class SpaceRocket {
         asteroids = new ArrayList<>();
         asteroids.add(new Asteroid());
         asteroids.add(new Asteroid());
+        asteroids.add(new Asteroid());
+        asteroids.add(new Asteroid());
     }
 
     public void update(){
