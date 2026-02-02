@@ -15,16 +15,17 @@ public class SpaceRocket {
     private final Vector acceleration;
     private int width;
     private int height;
-    private Color color = Color.BLACK;
+    private Color color = Color.GREEN;
     private boolean moving = true;
     private ArrayList<Asteroid> asteroids;
+    private int health = 100;
 
     private SpaceRocket() {
         Random rand = new Random();
         this.location = new Vector((float)(386/2), 100);
         this.velocity = new Vector(rand.nextFloat() * 5f, 0);
-        //this.acceleration = new Vector(0, 0.2981f);
-        this.acceleration = new Vector(0, 0);
+        this.acceleration = new Vector(0, 0.2981f);
+        // this.acceleration = new Vector(0, 0);
         this.width = 20;
         this.height = 50;
 
@@ -59,13 +60,22 @@ public class SpaceRocket {
             }
             for(Asteroid asteroid : asteroids){
                 asteroid.update();
+                if (asteroid.collision(location, width, height)){
+                // log.info("-------------------------- COLLISION DETECTED --------------------------");
+                    health -= 10;
+                }
             }
+        }
+        if(health <= 0){
+            moving = false;
+            color = Color.RED;
         }
     }
 
     public void draw(Graphics2D g2d){
         g2d.setColor(color);
         g2d.fillRect( (int) this.location.getX(), (int) this.location.getY(), width, height);
+        g2d.setColor(new Color(80, 80, 80));
         for(Asteroid asteroid : asteroids){
             asteroid.draw(g2d);
         }
