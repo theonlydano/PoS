@@ -8,8 +8,7 @@ import java.util.Random;
 
 @Log
 
-public class Asteroid {
-    private Vector location;
+public class Asteroid extends Object{
     private ArrayList<Vector> paths;
     private boolean init = true;
     private int pathWays;
@@ -19,17 +18,12 @@ public class Asteroid {
     private float xPath;
     private float yPath;
     private int speed = 100;
-    private int height;
-    private int width;
     private int windowsWidth = 0;
     private int windowsHeight = 0;
 
     public Asteroid(int w, int h) {
         this.windowsWidth = w;
         this.windowsHeight = h;
-
-        // log.info("WW: " + w);
-        // log.info("WH: " + h);
 
         Random rand = new Random();
         this.location = new Vector(rand.nextFloat(windowsWidth), rand.nextFloat(windowsHeight));
@@ -49,6 +43,7 @@ public class Asteroid {
         this.width = height;
     }
 
+    @Override
     public void update(){
         for(Vector path : paths){
             if((int)location.getX() == (int)path.getX() && (int)location.getY() == (int)path.getY()){
@@ -66,15 +61,7 @@ public class Asteroid {
         // log.info("Asteroid " + onPath + " PATH: " + paths.get(onPath).getX() + " Y: " + paths.get(onPath).getY());
     }
 
-    public boolean collision(Vector l, int w, int h){
-        if (location.getX() + width > l.getX() && location.getX() < l.getX() + w){
-            if(location.getY() + height > l.getY() && location.getY() < l.getY() + h){
-                return true;
-            }
-        }
-        return false;
-    }
-
+    @Override
     public void draw(Graphics g){
         g.fillOval((int)location.getX(), (int)location.getY(), width, height);
     }
