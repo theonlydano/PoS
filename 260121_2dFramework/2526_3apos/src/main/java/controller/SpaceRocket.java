@@ -15,24 +15,26 @@ public class SpaceRocket {
     private final Vector acceleration;
     private int width;
     private int height;
-    private Color color = Color.GREEN;
+    private Color color = Color.LIGHT_GRAY;
     private boolean moving = true;
     private ArrayList<Asteroid> asteroids;
     private int health = 100;
     private int windowsWidth = 10;
     private int windowsHeight = 10;
-    private float fuel = 200f;
+    private float fuel = 2000f;
+    private ArrayList<LandingPlattform> landingPlattforms;
 
     private SpaceRocket() {
         Random rand = new Random();
         this.location = new Vector((float)(386/2), 100);
         this.velocity = new Vector(rand.nextFloat() * 5f, 0);
-        this.acceleration = new Vector(0, 0.2981f);
+        this.acceleration = new Vector(0, 0.1981f);
         // this.acceleration = new Vector(0, 0);
         this.width = 20;
         this.height = 50;
 
         asteroids = new ArrayList<>();
+        landingPlattforms = new ArrayList<>();
     }
 
     private void generateAstsroids() {
@@ -40,6 +42,15 @@ public class SpaceRocket {
         for(int i = rand.nextInt(2); i > 0; i--){
             asteroids.add(new Asteroid(windowsWidth, windowsHeight));
         }
+    }
+
+    private void generateLandingPlattforms() {
+        Random rand = new Random();
+        /*
+        for(int i = rand.nextInt(2); i > 0; i--){
+        }
+        */
+        landingPlattforms.add(new LandingPlattform(new Vector((float)(windowsWidth/2), (float)(windowsHeight/2)), 20, 20));
     }
 
     public void update(){
@@ -71,6 +82,13 @@ public class SpaceRocket {
                     health -= 10;
                 }
             }
+            for(LandingPlattform plattform : landingPlattforms){
+                plattform.update();
+                if (plattform.collision(location, width, height)){
+                    moving = false;
+                    color = Color.GREEN;
+                }
+            }
         }
         if(health <= 0){
             moving = false;
@@ -84,6 +102,9 @@ public class SpaceRocket {
         g2d.setColor(new Color(80, 80, 80));
         for(Asteroid asteroid : asteroids){
             asteroid.draw(g2d);
+        }
+        for(LandingPlattform plattform : landingPlattforms){
+            plattform.draw(g2d);
         }
     }
 
@@ -110,6 +131,7 @@ public class SpaceRocket {
         this.windowsHeight = h;
         // log.info("SET WINDOW PARAMS: w=" + w + ", h=" + h);
         generateAstsroids();
+        generateLandingPlattforms();
     }
 
 }
