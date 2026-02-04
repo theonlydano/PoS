@@ -19,4 +19,14 @@ public class LandingPlattform extends Object{
     public void draw(Graphics g){
         g.fillRect((int)location.getX(), (int)location.getY(), width, height);
     }
+
+    public boolean checkOnTop(Vector l, int h){
+        // Not yet working
+        /*
+        if(location.getY() >= l.getY() - h){
+            return true;
+        }
+         */
+        return true;
+    }
 }

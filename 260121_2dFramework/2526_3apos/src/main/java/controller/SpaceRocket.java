@@ -28,8 +28,8 @@ public class SpaceRocket {
         Random rand = new Random();
         this.location = new Vector((float)(386/2), 100);
         this.velocity = new Vector(rand.nextFloat() * 5f, 0);
-        this.acceleration = new Vector(0, 0.1981f);
-        // this.acceleration = new Vector(0, 0);
+        // this.acceleration = new Vector(0, 0.1981f);
+        this.acceleration = new Vector(0, 0);
         this.width = 20;
         this.height = 50;
 
@@ -75,6 +75,7 @@ public class SpaceRocket {
                 moving = false;
                 location.setY(windowsHeight - height);
             }
+
             for(Asteroid asteroid : asteroids){
                 asteroid.update();
                 if (asteroid.collision(location, width, height)){
@@ -82,9 +83,10 @@ public class SpaceRocket {
                     health -= 10;
                 }
             }
+
             for(LandingPlattform plattform : landingPlattforms){
                 plattform.update();
-                if (plattform.collision(location, width, height)){
+                if (plattform.collision(location, width, height) && plattform.checkOnTop(location, height)){
                     moving = false;
                     color = Color.GREEN;
                 }
