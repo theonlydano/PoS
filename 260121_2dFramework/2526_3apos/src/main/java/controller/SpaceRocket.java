@@ -21,6 +21,7 @@ public class SpaceRocket {
     private int health = 100;
     private int windowsWidth = 10;
     private int windowsHeight = 10;
+    private float fuel = 200f;
 
     private SpaceRocket() {
         Random rand = new Random();
@@ -36,7 +37,7 @@ public class SpaceRocket {
 
     private void generateAstsroids() {
         Random rand = new Random();
-        for(int i = rand.nextInt(50); i > 0; i--){
+        for(int i = rand.nextInt(2); i > 0; i--){
             asteroids.add(new Asteroid(windowsWidth, windowsHeight));
         }
     }
@@ -88,7 +89,12 @@ public class SpaceRocket {
 
     public void move(Vector velocity){
         // log.info("--> spaceRocket move called " + velocity);
-        this.velocity.add(velocity);
+        if(fuel <= 0 && moving){
+            color = Color.MAGENTA;
+        }else{
+            this.velocity.add(velocity);
+            fuel -= 10;
+        }
     }
 
     public static SpaceRocket getSpaceRocket(){
