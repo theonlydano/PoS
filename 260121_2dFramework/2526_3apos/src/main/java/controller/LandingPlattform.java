@@ -3,6 +3,7 @@ package controller;
 import java.awt.*;
 
 public class LandingPlattform extends Object{
+    private Color color = Color.cyan;
 
     public LandingPlattform(Vector location, int width, int height) {
         this.location = location;
@@ -17,6 +18,7 @@ public class LandingPlattform extends Object{
 
     @Override
     public void draw(Graphics g){
+        g.setColor(color);
         g.fillRect((int)location.getX(), (int)location.getY(), width, height);
     }
 

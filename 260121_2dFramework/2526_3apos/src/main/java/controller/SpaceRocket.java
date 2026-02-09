@@ -8,7 +8,7 @@ import java.util.Random;
 
 @Log
 
-public class SpaceRocket {
+public class SpaceRocket extends Object{
     private static SpaceRocket spaceRocket;
     private Vector location;
     private Vector velocity;
@@ -28,8 +28,8 @@ public class SpaceRocket {
         Random rand = new Random();
         this.location = new Vector((float)(386/2), 100);
         this.velocity = new Vector(rand.nextFloat() * 5f, 0);
-        // this.acceleration = new Vector(0, 0.1981f);
-        this.acceleration = new Vector(0, 0);
+        this.acceleration = new Vector(0, 0.1981f);
+        // this.acceleration = new Vector(0, 0);
         this.width = 20;
         this.height = 50;
 
@@ -39,7 +39,7 @@ public class SpaceRocket {
 
     private void generateAstsroids() {
         Random rand = new Random();
-        for(int i = rand.nextInt(2); i > 0; i--){
+        for(int i = rand.nextInt(30); i > 0; i--){
             asteroids.add(new Asteroid(windowsWidth, windowsHeight));
         }
     }
@@ -53,6 +53,7 @@ public class SpaceRocket {
         landingPlattforms.add(new LandingPlattform(new Vector((float)(windowsWidth/2), (float)(windowsHeight/2)), 20, 20));
     }
 
+    @Override
     public void update(){
         if(moving){
             // log.info("space rocket updated");
@@ -98,16 +99,22 @@ public class SpaceRocket {
         }
     }
 
-    public void draw(Graphics2D g2d){
-        g2d.setColor(color);
-        g2d.fillRect( (int) this.location.getX(), (int) this.location.getY(), width, height);
-        g2d.setColor(new Color(80, 80, 80));
+    @Override
+    public void draw(Graphics g){
+        g.setColor(color);
+        g.fillRect( (int) this.location.getX(), (int) this.location.getY(), width, height);
+        g.setColor(new Color(80, 80, 80));
         for(Asteroid asteroid : asteroids){
-            asteroid.draw(g2d);
+            asteroid.draw(g);
         }
         for(LandingPlattform plattform : landingPlattforms){
-            plattform.draw(g2d);
+            plattform.draw(g);
         }
+    }
+
+    @Override
+    public boolean collision(Vector location, int width, int height){
+        return false;
     }
 
     public void move(Vector velocity){
