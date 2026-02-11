@@ -91,6 +91,9 @@ public class SpaceRocket extends Object{
                 if (plattform.collision(location, width, height) && plattform.checkOnTop(location, height, width)){
                     moving = false;
                     color = Color.GREEN;
+                } else if (plattform.collision(location, width, height)) {
+                    moving = false;
+                    color = Color.RED;
                 }
             }
         }
