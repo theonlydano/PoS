@@ -63,6 +63,23 @@ public class Asteroid extends Object{
 
     @Override
     public void draw(Graphics g){
-        g.fillOval((int)location.getX(), (int)location.getY(), width, height);
+        Graphics2D g2 = (Graphics2D) g;
+
+        int x = (int) location.getX();
+        int y = (int) location.getY();
+
+        // Base asteroid body
+        g2.setColor(new Color(120, 120, 120)); // gray rock
+        g2.fillOval(x, y, width, height);
+
+        // Outline for a rougher look
+        g2.setColor(Color.DARK_GRAY);
+        g2.drawOval(x, y, width, height);
+
+        // Craters
+        g2.setColor(new Color(90, 90, 90));
+        g2.fillOval(x + width / 4, y + height / 3, width / 6, height / 6);
+        g2.fillOval(x + width / 2, y + height / 4, width / 8, height / 8);
+        g2.fillOval(x + width / 3, y + height / 2, width / 10, height / 10);
     }
 }

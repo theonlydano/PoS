@@ -21,7 +21,7 @@ public class SpaceRocket extends Object{
     private int health = 100;
     private int windowsWidth = 10;
     private int windowsHeight = 10;
-    private float fuel = 20000f;
+    private float fuel = 3000f;
     private ArrayList<LandingPlattform> landingPlattforms;
     private final int asteroidlimit = 10;
 
@@ -51,7 +51,7 @@ public class SpaceRocket extends Object{
         for(int i = rand.nextInt(2); i > 0; i--){
         }
         */
-        landingPlattforms.add(new LandingPlattform(new Vector((float)(windowsWidth/2), (float)(windowsHeight/2)), 20, 20));
+        landingPlattforms.add(new LandingPlattform(new Vector((float)(windowsWidth/2), (float)(windowsHeight/2)), 40, 20));
     }
 
     @Override
@@ -105,9 +105,98 @@ public class SpaceRocket extends Object{
 
     @Override
     public void draw(Graphics g){
-        g.setColor(color);
-        g.fillRect( (int) this.location.getX(), (int) this.location.getY(), width, height);
-        g.setColor(new Color(80, 80, 80));
+        Graphics2D g2 = (Graphics2D) g;
+
+        int x = (int) location.getX();
+        int y = (int) location.getY();
+
+        // === ROCKET BODY ===
+        g2.setColor(color);
+        g2.fillRect(x, y, width, height);
+
+        g2.setColor(new Color(80, 80, 80));
+        g2.drawRect(x, y, width, height);
+
+        // === NOSE CONE ===
+        int[] noseX = {
+                x,
+                x + width / 2,
+                x + width
+        };
+
+        int[] noseY = {
+                y,
+                y - height / 3,
+                y
+        };
+
+        g2.setColor(color.brighter());
+        g2.fillPolygon(noseX, noseY, 3);
+
+        // === SIDE FINS ===
+        g2.setColor(color.darker());
+
+        // Left fin
+        int[] leftFinX = {
+                x,
+                x - width / 3,
+                x
+        };
+        int[] leftFinY = {
+                y + height / 2,
+                y + height,
+                y + height
+        };
+        g2.fillPolygon(leftFinX, leftFinY, 3);
+
+        // Right fin
+        int[] rightFinX = {
+                x + width,
+                x + width + width / 3,
+                x + width
+        };
+        int[] rightFinY = {
+                y + height / 2,
+                y + height,
+                y + height
+        };
+        g2.fillPolygon(rightFinX, rightFinY, 3);
+
+        // === WINDOW ===
+        g2.setColor(new Color(150, 200, 255));
+        int windowSize = width / 2;
+        g2.fillOval(
+                x + width / 4,
+                y + height / 4,
+                windowSize,
+                windowSize
+        );
+
+        g2.setColor(Color.WHITE);
+        g2.drawOval(
+                x + width / 4,
+                y + height / 4,
+                windowSize,
+                windowSize
+        );
+
+        // === ENGINE FLAME (optional) ===
+        g2.setColor(Color.ORANGE);
+
+        int[] flameX = {
+                x + width / 4,
+                x + width / 2,
+                x + 3 * width / 4
+        };
+
+        int[] flameY = {
+                y + height,
+                y + height + height / 3,
+                y + height
+        };
+
+        g2.fillPolygon(flameX, flameY, 3);
+
         for(Asteroid asteroid : asteroids){
             asteroid.draw(g);
         }

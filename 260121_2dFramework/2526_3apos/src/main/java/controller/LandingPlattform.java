@@ -22,8 +22,44 @@ public class LandingPlattform extends Object{
 
     @Override
     public void draw(Graphics g){
-        g.setColor(color);
-        g.fillRect((int)location.getX(), (int)location.getY(), width, height);
+        Graphics2D g2 = (Graphics2D) g;
+
+        int x = (int) location.getX();
+        int y = (int) location.getY();
+
+        int topHeight = height / 4; // only this part is landable
+
+        // === FLAT TOP (landable area) ===
+        g2.setColor(color);
+        g2.fillRect(x, y, width, topHeight);
+
+        // Outline the top to make it clear
+        g2.setColor(color.darker());
+        g2.drawRect(x, y, width, topHeight);
+
+        // === SPIKY BOTTOM (not landable) ===
+        g2.setColor(color.darker());
+
+        int spikeCount = width / 10;
+        int spikeWidth = width / spikeCount;
+
+        for (int i = 0; i < spikeCount; i++) {
+            int spikeX = x + i * spikeWidth;
+
+            int[] xPoints = {
+                    spikeX,
+                    spikeX + spikeWidth / 2,
+                    spikeX + spikeWidth
+            };
+
+            int[] yPoints = {
+                    y + topHeight,
+                    y + height,
+                    y + topHeight
+            };
+
+            g2.fillPolygon(xPoints, yPoints, 3);
+        }
     }
 
     public boolean checkOnTop(Vector l, int h, int w){
