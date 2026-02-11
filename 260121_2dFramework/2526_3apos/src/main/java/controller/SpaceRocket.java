@@ -21,8 +21,9 @@ public class SpaceRocket extends Object{
     private int health = 100;
     private int windowsWidth = 10;
     private int windowsHeight = 10;
-    private float fuel = 2000f;
+    private float fuel = 20000f;
     private ArrayList<LandingPlattform> landingPlattforms;
+    private final int asteroidlimit = 10;
 
     private SpaceRocket() {
         Random rand = new Random();
@@ -39,7 +40,7 @@ public class SpaceRocket extends Object{
 
     private void generateAstsroids() {
         Random rand = new Random();
-        for(int i = rand.nextInt(30); i > 0; i--){
+        for(int i = rand.nextInt(asteroidlimit); i > 0; i--){
             asteroids.add(new Asteroid(windowsWidth, windowsHeight));
         }
     }
@@ -87,7 +88,7 @@ public class SpaceRocket extends Object{
 
             for(LandingPlattform plattform : landingPlattforms){
                 plattform.update();
-                if (plattform.collision(location, width, height) && plattform.checkOnTop(location, height)){
+                if (plattform.collision(location, width, height) && plattform.checkOnTop(location, height, width)){
                     moving = false;
                     color = Color.GREEN;
                 }

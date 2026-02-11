@@ -1,6 +1,10 @@
 package controller;
 
+import lombok.extern.java.Log;
+
 import java.awt.*;
+
+@Log
 
 public class LandingPlattform extends Object{
     private Color color = Color.cyan;
@@ -22,13 +26,14 @@ public class LandingPlattform extends Object{
         g.fillRect((int)location.getX(), (int)location.getY(), width, height);
     }
 
-    public boolean checkOnTop(Vector l, int h){
-        // Not yet working
-        /*
-        if(location.getY() >= l.getY() - h){
-            return true;
+    public boolean checkOnTop(Vector l, int h, int w){
+        // Simple checker - checks if on top or 5 px under the top
+        if((int) location.getY() <= (int)(l.getY() + h) && (int) location.getY() >= (int) (l.getY() + h - 5)){
+            if((int) location.getX() <= (int) (l.getX() + w) && (int) (location.getX() + width) >= (int) l.getX()){
+                return true;
+            }
         }
-         */
-        return true;
+
+        return false;
     }
 }
