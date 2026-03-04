@@ -9,7 +9,7 @@ public class _02_PrimeFinder_App {
         List<Long> primes = new ArrayList<Long>();
 
         Long start = 3L;
-        Long end = 2_000_000L;
+        Long end = 20_000_000L;
 
         Long div = end / 4;
 
