@@ -3,15 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileChanger implements Runnable {
-
-    File demo;
-    long lastModified;
-
-    public FileChanger(File demo) {
-        this.demo = demo;
-        lastModified = demo.lastModified();
-    }
+public class FileChanger {
 
     /*
     your turn:
@@ -23,20 +15,36 @@ public class FileChanger implements Runnable {
      */
 
     public static void main(String[] args) {
-        Path path = Path.of("src/main/resources/demo.txt");
+        String filename = "demo.txt";
+        Path path = Path.of(System.getProperty("user.dir"),"src/main/resources/", filename);
         File file = path.toFile();
-        FileChanger fc = new FileChanger(file);
-        Thread thread = new Thread(fc);
+        OwnRunnable or = new OwnRunnable(file);
+        Thread thread = new Thread(or);
 
         thread.start();
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            if (demo.lastModified() > lastModified) {
-                System.out.println("File " + demo.getName() + " has been changed...");
-                lastModified = demo.lastModified();
+    public static class OwnRunnable implements Runnable {
+        File demo;
+        long lastModified;
+
+        public OwnRunnable(File demo) {
+            this.demo = demo;
+            lastModified = demo.lastModified();
+        }
+
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    if (demo.lastModified() > lastModified) {
+                        System.out.println("File " + demo.getName() + " has been changed...");
+                        lastModified = demo.lastModified();
+                        Thread.sleep(1000);
+                    }
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
